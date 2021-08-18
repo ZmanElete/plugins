@@ -134,9 +134,8 @@ class InAppPurchaseAndroidPlatform extends InAppPurchasePlatform {
         await billingClient.launchBillingFlow(
             sku: purchaseParam.productDetails.id,
             accountId: purchaseParam.applicationUserName,
-            oldSku: changeSubscriptionParam?.oldPurchaseDetails.productID,
-            purchaseToken: changeSubscriptionParam
-                ?.oldPurchaseDetails.verificationData.serverVerificationData,
+            oldSku: changeSubscriptionParam?.oldProductId,
+            purchaseToken: changeSubscriptionParam?.oldServerVerificationData,
             prorationMode: changeSubscriptionParam?.prorationMode);
     return billingResultWrapper.responseCode == BillingResponse.ok;
   }

@@ -9,13 +9,29 @@ import 'types.dart';
 class ChangeSubscriptionParam {
   /// Creates a new change subscription param object with given data
   ChangeSubscriptionParam({
-    required this.oldPurchaseDetails,
+    required this.oldProductId,
+    required this.oldServerVerificationData,
     this.prorationMode,
   });
 
-  /// The purchase object of the existing subscription that the user needs to
-  /// upgrade/downgrade from.
-  final GooglePlayPurchaseDetails oldPurchaseDetails;
+  /// Creates a new change subscription param object from a [GooglePlayPurchaseDetails]
+  factory ChangeSubscriptionParam.fromPurchaseDetails(
+    /// The purchase object of the existing subscription that the user needs to
+    /// upgrade/downgrade from.
+    GooglePlayPurchaseDetails oldPurchaseDetails,
+    ProrationMode? prorationMode,
+  ) {
+    return ChangeSubscriptionParam(
+      oldProductId: oldPurchaseDetails.productID,
+      oldServerVerificationData: oldPurchaseDetails.verificationData.serverVerificationData,
+      prorationMode: prorationMode,
+    );
+  }
+
+  ///The product id of the previously purchased product
+  final String oldProductId;
+  ///The token given in the [PurchaseDetails] [VerificationData].serverVerificationData.
+  final String oldServerVerificationData;
 
   /// The proration mode.
   ///
